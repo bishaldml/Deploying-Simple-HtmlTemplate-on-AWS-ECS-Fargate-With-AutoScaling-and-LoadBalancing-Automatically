@@ -1,1 +1,1 @@
-# Deploying simple html template on AWS ECS Fargate with ASc and LB automatically with CI/CD
+# Deploying simple html template on AWS ECS Fargate with AutoScaling and LoadBalancing automatically with CI/CD
