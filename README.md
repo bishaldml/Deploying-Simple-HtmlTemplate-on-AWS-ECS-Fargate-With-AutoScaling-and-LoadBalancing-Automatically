@@ -220,3 +220,39 @@ docker push <dockerhub_username>/<image_name>:tag
    
 ## CI/CD Pipeline for AWS ECS using CodeCommit, CodeBuild and CodePipeline.
 ![AWS Architecture](images/CI_CD-Pipeline-Containers.png)
+
+### STEP-1: CodeCommit
+1. Goto AWS CodeCommit
+2. Create Repository
+3. Give Repository_Name: bishal-cicd-fargate-project-repo
+4. Create
+#### * Push Code to CodeCommit Repo:
+1. Goto IAM DashBoard
+2. Select your user
+3. Add Permissions
+4. Attach Policies directly
+5. In Permission Policies Section: Search "AWSCodeCommitAccess" and select it.
+6. Add permission
+7. Select Security_Credentials: Inorder to push our code to codecommit we need to crete a git credentials.
+8. Select "Generate Credentials" for HTTPS Git Credentials for AWS CodeCommit.
+9. Click "Clone URL" to copy teh url of repo:
+   1. Select Clone HTTPS
+  
+#### On Local Machine
+1. git clone repo_url
+2. we need to paste above generate git_credentials
+3. Copy all the application contents to the clone repo_directory
+4. cp application_code/* clone_repo_directory/
+5. cd clone_repo_dir
+6. touch Dockerfile buildspec.yml
+7. git add -- .
+8. git commit -m "add Dockerfile and buildspec.yml file"
+9. git push (requires above generated git-credentials)
+    
+### STEP-2: CodeBuild
+
+
+
+### STEP-3: CodePipeline
+
+
