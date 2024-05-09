@@ -221,3 +221,4 @@ docker push <dockerhub_username>/<image_name>:tag
 4. Finally Click "Create"
    
 ## CI/CD Pipeline for AWS ECS using CodeCommit, CodeBuild and CodePipeline.
+![AWS Architecture](images/.png)
