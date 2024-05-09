@@ -111,7 +111,7 @@
       - view push commands: (Gives quick access to the cmds that we need to run)
       - Run (cmd 1 and 4 only, because we already build docker image) on EC2
 
-#### Alternate: Using dockerhub to push the image:
+#### Alternate: To push the image to DockerHub:
 
 1. Creating Image usign Dockerfile: ``` docker build -t image_name . ```
 2. Runnign Image and Exposing : ``` docker run -dp 80:80 image_name
