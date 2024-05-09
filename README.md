@@ -1,7 +1,7 @@
 # Deploying simple html template on AWS ECS Fargate with AutoScaling and LoadBalancing automatically with CI/CD
-## STEP-1: Launch and Deploy WebApp Image to AWS Fargate.
+## Launch and Deploy WebApp Image to AWS Fargate.
 
-### S1 : Building VPC
+### STEP-1: Building VPC
 1. Create a VPC.
 2. Select "VPC and More"
 3. Give "IPv4 CIDR Block"
@@ -19,7 +19,7 @@
 9. VPC endpoints: "None" (for Demo Project only)
 10. Finally Select "Create VPC"
 
-### S2 : Create a SG for ALB, APP and DB
+### STEP-2 : Create a SG for ALB, APP and DB
 
 1. For ALB:
    1. Select SG from VPC Console.
@@ -44,13 +44,13 @@
       1. In Type: Select "MYSQL/AURORA"
       2. Source: Custom: APP_SG_ID
 
-### S3 : Creating ECR Repository
+### STEP-3 : Creating ECR Repository
 1. Select "Repositories" from ECR Console.
 2. Create repository
 3. Give Repository Name: bishaldhimal_demo-project_Repository
 4. Create Repository
 
-### S4 : Building Docker Image
+### STEP-4 : Building Docker Image
 #### Prerequisite:
 1. Install docker on local machine.
 2. Install AWS CLI
@@ -122,6 +122,26 @@ docker login -u <dockerhub_username>
 docker build -t <dockerhub_username>/<image_name>:tag .
 docker push <dockerhub_username>/<image_name>:tag
 ```
+### STEP-5: Creating TG For ALB
+1. Goto EC2 DashBoard
+2. Select TG
+3. Create TG
+4. Choose a TG: IP_Address (ECS fargate requires IP for targets)
+5. Give TG_Name: bishal_Demo-project-TG_ALB
+6. Select "Right VPC"
+7. Next
+8. Specify IP's and Define Ports: remove all
+9. Create TG
+
+### STEP-6:
+
+### STEP-7:
+
+### STEP-8:
+
+### STEP-9:
+
+### STEP-10:
 
 
-## STEP-2: CI/CD Pipeline for AWS ECS using CodeCommit, CodeBuild and CodePipeline.
+## CI/CD Pipeline for AWS ECS using CodeCommit, CodeBuild and CodePipeline.
