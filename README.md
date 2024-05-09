@@ -250,9 +250,51 @@ docker push <dockerhub_username>/<image_name>:tag
 9. git push (requires above generated git-credentials)
     
 ### STEP-2: CodeBuild
+1. Goto AWSCodeBuild
+2. Select Getting started from Build Section
+3. Create Project
+4. Give Poject_Name: bishal_Demo-Project_CodeBuild
+5. In Source1 - Primary Section:
+   1. Source Provider: AWS CodeCommit
+   2. Repository: Select your repo
+   3. Reference Type: Branch
+   4. Branch: main
+   5. Operating System: Amazon Linux
+   6. RunTimes(s): standard
+   7. Image: latest image of code build
+6. In Additional Configuration (Drop-Down)
+   1. Timeout: 10 min
+   2. Tick Privileged
+7. Finally Click "Create"
 
-
+#### *Note: Attaching a ECR policy or permission to CodeBuild
+1. Select your CodeBuild Project
+2. Build Details
+3. In Environment Section:
+   1. Select Service Role
+   2. Add Permissions
+   3. Attach Policies
+   4. Search for AmazonEC2ContainerRegistryFullAccess
+4. ADD Permissions
 
 ### STEP-3: CodePipeline
-
+1. Select Pipeline
+2. Select Getting Started
+3. Create Pipeline
+4. Give Pipeline_Name: bishal-cicd-fargate-Pipeline
+5. Next
+6. Source Provider: AWS CodeBuild
+7. Repo_Name: Choose your repo
+8. Branch_Name: Choose your branch
+9. Next
+10. Build Provider: AWS CodeBuild
+    1. Region: your_region
+11. Project Name: ur_build_project_name
+12. Select "Add Environment Variable" and fill the environment variable of your buildspec.yml file environment variables.
+13. Next
+14. Deploy Provider: Amazon ECS
+    1. Cluster_Name: Select "your_cluster"
+    2. Service_Name: Select "your service name of ECS"
+15. Next
+16. Create Pipeline
 
