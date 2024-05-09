@@ -1,4 +1,6 @@
 # Deploying simple html template on AWS ECS Fargate with AutoScaling and LoadBalancing automatically with CI/CD
+
+![AWS Architecture]()
 ## Launch and Deploy WebApp Image to AWS Fargate.
 
 ### STEP-1: Building VPC
