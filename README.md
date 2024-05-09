@@ -133,15 +133,89 @@ docker push <dockerhub_username>/<image_name>:tag
 8. Specify IP's and Define Ports: remove all
 9. Create TG
 
-### STEP-6:
+### STEP-6: Create an Application Load Balancer 
+1. Create a LB
+2. Select ALB
+3. Create
+4. Give_Name_LB: bishal_ALB_demo-project
+5. Network Mapping:
+   1. VPC: Select Your VPC
+6. Mappings:
+   1. Tick your AZ's and Select your public subnet (Imp.)
+   2. For SG: Select your ALB_SG
+   3. In listeners and routing: Select your TG
+7. Create LB.
 
-### STEP-7:
+### STEP-7: IAM Roles and Policies for ECS Tasks (One Role with couple of Policies)
+1. Goto IAM Dashboard
+2. Select Policies: for Secret_Manager (DB)
+3. Create Policy:
+   1. Select Secret Manager
+   2. In Actions allowed: getsecretvalue
+   3. In Resources : Tick Specific and Add ARNs
+   4. Copy Secret_ARN from Secret_Manager_Secrets_of_DB
+   5. Next
+   6. Give Policy_Name: bishal-allow-read_db_secrets-Policy
+   7. Create Policy
 
-### STEP-8:
+### STEP-8: Create an Amazon ECS cluster
+1. Goto ECS Dashboard
+2. Create Cluster
+3. Give ClusterName: bishal_ECS_Cluster_Fargate
+4. In Infrastructure: Select "AWS Fargate"
+5. Create
 
-### STEP-9:
+### STEP-9: Create ECS Task Definition
+1. Create TD
+2. Give_Name: bishal_ECS_TD
+3. In launch Type: AWS Fargate
+4. Specify Task_Size:
+   1. CPU: 0.5 vCPU
+   2. Memory: 1 GB
+6. Select above_create "Task Role" for Task Role as well as Execution Role ie. same role for both.
+7. In Next Section: Container details:
+   1. Name: bishal_container
+   2. Image URI: paste the URI of ECR image that we uploaded
+8. Port Mapping: HTTP with port 80
+9. Define Environment Variable (for DB)
+10. Click "Create"
+#### * Note: Task Placement is necessary to production. so, study docs.
 
-### STEP-10:
+### STEP-10: Create an ECS Service (which will deploy those containers into our cluster and we should be able to access our application.)
 
-
+1. Goto ECS Cluster Console.
+2. Click your cluster
+3. In Service Tab:
+   1. Create
+   2. In Compute Options: Launch_Type
+      1. Launch Type: FARGATE
+   3. In Task Definition:
+      1. Family: <Select_your_TD>
+      2. REVISION: latest
+      3. Service_Name: bishal_ECS_Service
+   4. Service Type: Replica
+   5. Desired Task: 1 (for test), in real project choose acc. to your specific needs.
+   6. Expand Networking:
+      1. Select Your VPC
+      2. In subnets: Make sure to select only the app_subnet
+      3. In SG: Select app_SG
+      4. Public_IP: Turned off(close)
+   7. Expand LB:
+      1. Select ALB
+      2. Use an existing LB
+      3. choose your LB
+      4. use existing listner: Select 80:HTTP
+      5. use existing TG: your_TG
+   8. Expand Service_Auto_Scaling:
+      1. Tick use ServiceAutoScaling
+      2. Min. Task: 1
+      3. Max. Task: 4
+      4. Scaling Policy Type: Target Tracking
+      5. Policy_Name: bishal_ServiceAutoScaling_Policy-ECS
+      6. ECS Service Metric: ECSServiceAvgCPUUtilization
+      7. TargetValue: 70
+      8. Scale_out_cool_down_period: 300
+      9. Scale_in_cool_down_period: 300
+4. Finally Click "Create"
+   
 ## CI/CD Pipeline for AWS ECS using CodeCommit, CodeBuild and CodePipeline.
