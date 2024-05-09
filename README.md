@@ -45,5 +45,83 @@
       2. Source: Custom: APP_SG_ID
 
 ### S3 : Creating ECR Repository
+1. Select "Repositories" from ECR Console.
+2. Create repository
+3. Give Repository Name: bishaldhimal_demo-project_Repository
+4. Create Repository
+
+### S4 : Building Docker Image
+#### Prerequisite:
+1. Install docker on local machine.
+2. Install AWS CLI
+
+#### Let's us create EC2 and connect it using session manager because it is more secure way to remote connect because it doesnot requires ports like 22(ssh) and 3389(RDP) to open.
+
+1. To use Session Manager, we require some roles:
+   1. Goto IAM console.
+   2. Select Roles
+   3. Create Roles
+   4. Trusted Entity Type: AWS Service
+   5. Use Case: EC2
+   6. Next
+   7. In Permission Policies: Search "AmazonSSMManagedInstanceCore" and select it. (It allows to remotely connect to an instance using session manager.)
+   8. Again, search "EC2InstanceProfileForImageBuilderECRContainerBuilds" and select it. (it allows to upload ECR images.)
+   9. Next
+   10. Give Role_Name: IAM_Grant_EC2_SSM_and_ECR_ACCESS_bishal
+   11. Create Role.
+  
+2. Goto EC2 Console.
+   1. Launch Instance.
+   2. Give Name: Bishal_Instance_Building_Docker_Image
+   3. AMI: Amazon Linux
+   4. Select "Right VPC"
+   5. Select Private Subnet in APP
+   6. SG: Select Default SG because it doesn't require anh inbound_rules, because we are using session manager.
+   7. In Advance Details:
+      1. IAM Instance Profile: Select Above Created Role for EC2.
+   8. Select "Launch Instance"
+  
+3. If EC2 is created and is in running state:
+   1. Select it.
+   2. Select Connect.
+   3. Select "Session Manager"  
+   4. Connect
+   5. After connect to EC2, switch user to local user:
+      ```
+      sudo su - ec2-user
+      pwd
+      sudo yum update -y
+      sudo yum install docker -y
+      sudo service docker start
+      sudo service docker enable
+      sudo chmod -a -G docker ec2-user 
+      ```
+   6. To activate it: logout(Exit) and Exit and Connect again.
+      ```
+      sudo su - ec2-user
+      pwd
+      git clone git_repo_url
+      vi Dockerfile
+
+      docker build -t <uri_of_ECS_registry> .
+      docker images
+      ```
+      ###### Pushing Image to ECR Repository:
+      - Click on ECR repository name
+      - view push commands: (Gives quick access to the cmds that we need to run)
+      - Run (cmd 1 and 4 only, because we already build docker image) on EC2
+
+#### Alternate: Using dockerhub to push the image:
+
+1. Creating Image usign Dockerfile: ``` docker build -t image_name . ```
+2. Runnign Image and Exposing : ``` docker run -dp 80:80 image_name
+
+#### To push the image on dockerhub:
+```
+docker login -u <dockerhub_username>
+docker build -t <dockerhub_username>/<image_name>:tag .
+docker push <dockerhub_username>/<image_name>:tag
+```
+
 
 ## STEP-2: CI/CD Pipeline for AWS ECS using CodeCommit, CodeBuild and CodePipeline.
