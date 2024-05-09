@@ -7,7 +7,7 @@
 3. Give "IPv4 CIDR Block"
 4. No. of AZ's : 2
 5. No. of Public Subnet: 2
-6. No. of Private Subnet: 2
+6. No. of Private Subnet: 4
 7. NAT Gateway: In 1 AZ (for Demo_Purpose only, for real project select "1 per AZ" for HA)
 8. Select "Customize Subnets CIDR Blocks":
    1. Public Subnet in ap-southeast-1a: ``` 10.0.1.0/24 ```
