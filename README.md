@@ -12,10 +12,10 @@
 8. Select "Customize Subnets CIDR Blocks":
    1. Public Subnet in ap-southeast-1a: ``` 10.0.1.0/24 ```
    2. Public Subnet in ap-southeast-1b: ``` 10.0.2.0/24 ```
-   3. Public Subnet for App in ap-southeast-1a: ``` 10.0.10.0/24 ```
-   4. Public Subnet for App in ap-southeast-1b: ``` 10.0.11.0/24 ```
-   5. Public Subnet for DB in ap-southeast-1a: ``` 10.0.20.0/24 ```
-   6. Public Subnet for DB in ap-southeast-1b: ``` 10.0.21.0/24 ```
+   3. Private Subnet for App in ap-southeast-1a: ``` 10.0.10.0/24 ```
+   4. Private Subnet for App in ap-southeast-1b: ``` 10.0.11.0/24 ```
+   5. Private Subnet for DB in ap-southeast-1a: ``` 10.0.20.0/24 ```
+   6. Private Subnet for DB in ap-southeast-1b: ``` 10.0.21.0/24 ```
 9. VPC endpoints: "None" (for Demo Project only)
 10. Finally Select "Create VPC"
 
