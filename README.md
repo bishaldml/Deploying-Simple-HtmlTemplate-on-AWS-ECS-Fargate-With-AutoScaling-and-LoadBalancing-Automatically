@@ -16,8 +16,9 @@
    4. Private Subnet for App in ap-southeast-1b: ``` 10.0.11.0/24 ```
    5. Private Subnet for DB in ap-southeast-1a: ``` 10.0.20.0/24 ```
    6. Private Subnet for DB in ap-southeast-1b: ``` 10.0.21.0/24 ```
-9. VPC endpoints: "None" (for Demo Project only)
-10. Finally Select "Create VPC"
+9. VPC endpoints: "None" (for Demo Project only
+10. UnClick "Name tag auto-generation" and provide name's for vpc, subnets, route tables and network connections.
+11. Finally Select "Create VPC"
 
 ### STEP-2 : Create a SG for ALB, APP and DB
 
